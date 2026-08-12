@@ -1,0 +1,196 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Taneesh — ссылки превью</title>
+    <style>
+      :root {
+        color-scheme: dark;
+        --bg: #09090b;
+        --card: #161617;
+        --border: #2c2c2e;
+        --text: #fafafa;
+        --muted: #a1a1aa;
+        --accent: #22c55e;
+        --link: #93c5fd;
+      }
+      * {
+        box-sizing: border-box;
+      }
+      body {
+        margin: 0;
+        font-family: Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+        background: var(--bg);
+        color: var(--text);
+        line-height: 1.5;
+        padding: 24px 16px 48px;
+      }
+      .wrap {
+        max-width: 720px;
+        margin: 0 auto;
+      }
+      h1 {
+        font-size: 1.5rem;
+        font-weight: 700;
+        margin: 0 0 8px;
+      }
+      .lead {
+        color: var(--muted);
+        margin: 0 0 24px;
+        font-size: 0.95rem;
+      }
+      .note {
+        background: rgba(34, 197, 94, 0.08);
+        border: 1px solid rgba(34, 197, 94, 0.25);
+        border-radius: 12px;
+        padding: 12px 14px;
+        font-size: 0.875rem;
+        color: #bbf7d0;
+        margin-bottom: 28px;
+      }
+      section {
+        margin-bottom: 28px;
+      }
+      h2 {
+        font-size: 0.75rem;
+        font-weight: 600;
+        letter-spacing: 0.06em;
+        text-transform: uppercase;
+        color: var(--muted);
+        margin: 0 0 10px;
+      }
+      ul {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+        border: 1px solid var(--border);
+        border-radius: 14px;
+        overflow: hidden;
+        background: var(--card);
+      }
+      li + li {
+        border-top: 1px solid var(--border);
+      }
+      a {
+        display: block;
+        padding: 12px 14px;
+        color: var(--link);
+        text-decoration: none;
+        font-size: 0.9375rem;
+      }
+      a:hover {
+        background: rgba(255, 255, 255, 0.04);
+      }
+      .label {
+        display: block;
+        color: var(--text);
+        font-weight: 500;
+      }
+      .path {
+        display: block;
+        margin-top: 2px;
+        font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+        font-size: 0.75rem;
+        color: var(--muted);
+        word-break: break-all;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="wrap">
+      <h1>Taneesh — превью админки</h1>
+      <p class="lead">
+        Прямые ссылки на GitHub Pages. На этом хосте вход не нужен — кабинет открывается сразу.
+      </p>
+      <p class="note">
+        Суперадмин: отдельный hash <code>#/superadmin</code>. Кабинет организатора: все остальные ссылки ниже.
+      </p>
+
+      <section>
+        <h2>Суперадмин</h2>
+        <ul id="links-superadmin"></ul>
+      </section>
+
+      <section>
+        <h2>Кабинет — разделы</h2>
+        <ul id="links-cabinet"></ul>
+      </section>
+
+      <section>
+        <h2>События — списки</h2>
+        <ul id="links-lists"></ul>
+      </section>
+
+      <section>
+        <h2>Tashkent Digital Marketing (платное)</h2>
+        <ul id="links-paid"></ul>
+      </section>
+
+      <section>
+        <h2>Uzbekistan Tech Summit (бесплатное, с подтверждением)</h2>
+        <ul id="links-free"></ul>
+      </section>
+
+      <section>
+        <h2>Финансы</h2>
+        <ul id="links-legal"></ul>
+      </section>
+    </div>
+    <script>
+      const BASE = location.origin + location.pathname.replace(/\/?preview-links\.html$/, '').replace(/\/$/, '');
+
+      function addLinks(containerId, items) {
+        const ul = document.getElementById(containerId);
+        for (const item of items) {
+          const li = document.createElement('li');
+          const a = document.createElement('a');
+          a.href = BASE + '/index.html' + item.hash;
+          a.innerHTML =
+            '<span class="label">' +
+            item.label +
+            '</span><span class="path">' +
+            item.hash +
+            '</span>';
+          li.appendChild(a);
+          ul.appendChild(li);
+        }
+      }
+
+      addLinks('links-superadmin', [{ label: 'SuperAdmin — главная', hash: '#/superadmin' }]);
+
+      addLinks('links-cabinet', [
+        { label: 'Дашборд (аналитика)', hash: '#/analytics' },
+        { label: 'Мероприятия', hash: '#/events' },
+        { label: 'Аудитория (CRM)', hash: '#/people' },
+        { label: 'Контролеры', hash: '#/controllers' },
+        { label: 'Внешний вид', hash: '#/appearance' },
+      ]);
+
+      addLinks('links-lists', [
+        { label: 'Предстоящие', hash: '#/events/upcoming' },
+        { label: 'Прошедшие', hash: '#/events/past' },
+        { label: 'Черновики', hash: '#/events/drafts' },
+        { label: 'Архив', hash: '#/events/archive' },
+      ]);
+
+      addLinks('links-paid', [
+        { label: 'Карточка — обзор', hash: '#/events/evt_up_1' },
+        { label: 'Участники (источник + тариф)', hash: '#/events/evt_up_1/attendees' },
+        { label: 'Платежи', hash: '#/events/evt_up_1/sales' },
+        { label: 'Статистика', hash: '#/events/evt_up_1/stats' },
+      ]);
+
+      addLinks('links-free', [
+        { label: 'Карточка — обзор', hash: '#/events/evt_up_2' },
+        { label: 'Участники (заявки)', hash: '#/events/evt_up_2/attendees' },
+      ]);
+
+      addLinks('links-legal', [
+        { label: 'Выплаты', hash: '#/legal/payouts' },
+        { label: 'Реквизиты', hash: '#/legal/requisites' },
+        { label: 'Документы', hash: '#/legal/documents' },
+      ]);
+    </script>
+  </body>
+</html>
